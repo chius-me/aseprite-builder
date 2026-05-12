@@ -1,0 +1,99 @@
+name: Build Aseprite Windows
+
+on:
+  workflow_dispatch:
+    inputs:
+      aseprite_ref:
+        description: Aseprite branch/tag/commit to build
+        required: true
+        default: main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Windows x64
+    runs-on: windows-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout Aseprite
+        uses: actions/checkout@v4
+        with:
+          repository: aseprite/aseprite
+          ref: ${{ inputs.aseprite_ref }}
+          submodules: recursive
+          path: aseprite
+
+      - name: Install Ninja
+        uses: aseprite/get-ninja@main
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Download matching Skia
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          skia_url="$(bash aseprite/laf/misc/skia-url.sh release windows x64 | xargs)"
+          if [[ -z "$skia_url" ]]; then
+            echo "Failed to resolve Skia URL from aseprite/laf/misc/skia-url.sh" >&2
+            exit 1
+          fi
+
+          echo "Downloading $skia_url"
+          curl --ssl-revoke-best-effort -L -o skia.zip "$skia_url"
+          unzip -q skia.zip -d skia
+
+          test -f skia/out/Release-x64/skia.lib
+
+      - name: Configure Aseprite
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cmake -S aseprite -B aseprite/build -G Ninja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DENABLE_NEWS=OFF \
+            -DENABLE_UPDATER=OFF \
+            -DENABLE_OPENSSL=OFF \
+            -DLAF_BACKEND=skia \
+            -DSKIA_DIR="$(realpath skia)" \
+            -DSKIA_LIBRARY_DIR="$(realpath skia/out/Release-x64)"
+
+      - name: Build Aseprite
+        shell: bash
+        run: ninja -C aseprite/build aseprite
+
+      - name: Check build output
+        shell: pwsh
+        run: |
+          if (!(Test-Path aseprite/build/bin/aseprite.exe)) {
+            throw "Missing build output: aseprite/build/bin/aseprite.exe"
+          }
+
+      - name: Audit runtime dependencies
+        shell: pwsh
+        run: |
+          $deps = & dumpbin /dependents aseprite/build/bin/aseprite.exe
+          if ($LASTEXITCODE -ne 0) {
+            throw "dumpbin /dependents failed for aseprite.exe"
+          }
+
+          $deps | ForEach-Object { Write-Host $_ }
+
+          foreach ($dll in @("libcrypto-3-x64.dll", "libssl-3-x64.dll")) {
+            if ($deps -match [regex]::Escape($dll)) {
+              throw "Git/OpenSSL runtime dependency detected: $dll"
+            }
+          }
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Aseprite-Windows-x64
+          path: aseprite/build/bin
