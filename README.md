@@ -33,6 +33,12 @@ The MIT License in this repository applies only to this builder workflow, tests,
 
 Before using this workflow, read and follow the Aseprite EULA. In particular, do not publicly distribute binaries produced by this workflow unless you have the rights to do so.
 
+## Disclaimer
+
+This project is an independent community-maintained builder script and is not affiliated with, endorsed by, or sponsored by Igara Studio or the Aseprite project.
+
+If this repository infringes any rights of Aseprite or its maintainers, please contact contact@chius.cc and I will address it promptly.
+
 ## Usage
 
 1. Fork this repository or copy the workflow into your own private repository.
