@@ -1,19 +1,21 @@
-<p align="right">
-  English | <a href="./README.zh.md">简体中文</a>
-</p>
+<div align="right">
+  <a href="#readme">English</a> | <a href="./README.zh.md">简体中文</a>
+</div>
 
-<h1 align="center">Aseprite Builder</h1>
+<div align="center">
 
-<p align="center">
-  A GitHub Actions workflow for building Aseprite on Windows x64 for personal use.
-</p>
+# Aseprite Builder
 
-<p align="center">
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
-  <img alt="GitHub Actions" src="https://img.shields.io/badge/GitHub%20Actions-Workflow-2088FF.svg">
-  <img alt="Windows" src="https://img.shields.io/badge/Windows-x64-0078D4.svg">
-  <img alt="Aseprite" src="https://img.shields.io/badge/Aseprite-Builder-7D929E.svg">
-</p>
+A reusable GitHub Actions workflow for building Aseprite on Windows x64 for personal use.
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/chius-me/aseprite-builder/actions/workflows/build.yml/badge.svg)](https://github.com/chius-me/aseprite-builder/actions)
+![Windows](https://img.shields.io/badge/Windows-x64-0078D4.svg?logo=windows&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Workflow-2088FF.svg?logo=githubactions&logoColor=white)
+
+[Usage](#usage) · [Important License Notice](#important-license-notice) · [Workflow Details](#workflow)
+
+</div>
 
 ## Overview
 
@@ -94,8 +96,14 @@ Re-run the workflow. GitHub-hosted Windows runners can vary in performance. If t
 
 The workflow intentionally fails if `aseprite.exe` depends on Git-provided OpenSSL DLLs. Keep `-DENABLE_NEWS=OFF`, `-DENABLE_UPDATER=OFF`, and `-DENABLE_OPENSSL=OFF` unless you understand the runtime packaging implications.
 
-## License
+## 📄 License
 
-This repository is licensed under the MIT License. See [LICENSE](LICENSE).
+This repository is licensed under the [MIT License](LICENSE).
 
 This license does not apply to Aseprite itself. See the official [Aseprite EULA](https://github.com/aseprite/aseprite/blob/main/EULA.txt).
+
+---
+
+<div align="center">
+  <sub>Crafted with ❤️ by <a href="https://chius.cc">Chius</a> · Powered by GitHub Actions</sub>
+</div>

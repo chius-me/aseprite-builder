@@ -1,19 +1,21 @@
-<p align="right">
+<div align="right">
   <a href="./README.md">English</a> | 简体中文
-</p>
+</div>
 
-<h1 align="center">Aseprite Builder</h1>
+<div align="center">
 
-<p align="center">
-  用于在 Windows x64 上通过 GitHub Actions 编译 Aseprite 的个人自建工作流。
-</p>
+# Aseprite Builder
 
-<p align="center">
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
-  <img alt="GitHub Actions" src="https://img.shields.io/badge/GitHub%20Actions-Workflow-2088FF.svg">
-  <img alt="Windows" src="https://img.shields.io/badge/Windows-x64-0078D4.svg">
-  <img alt="Aseprite" src="https://img.shields.io/badge/Aseprite-Builder-7D929E.svg">
-</p>
+用于在 Windows x64 上通过 GitHub Actions 编译 Aseprite 的个人自建工作流。
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/chius-me/aseprite-builder/actions/workflows/build.yml/badge.svg)](https://github.com/chius-me/aseprite-builder/actions)
+![Windows](https://img.shields.io/badge/Windows-x64-0078D4.svg?logo=windows&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Workflow-2088FF.svg?logo=githubactions&logoColor=white)
+
+[使用方法](#使用方法) · [重要许可说明](#重要许可说明) · [工作流结构](#工作流结构)
+
+</div>
 
 ## 项目简介
 
@@ -94,8 +96,12 @@ LICENSE                      本 builder 仓库的授权协议
 
 如果 `aseprite.exe` 依赖 Git 提供的 OpenSSL DLL，工作流会主动失败。除非你理解运行时打包影响，否则请保留 `-DENABLE_NEWS=OFF`、`-DENABLE_UPDATER=OFF` 和 `-DENABLE_OPENSSL=OFF`。
 
-## License
+## 📄 许可证
 
-本仓库使用 MIT License。详见 [LICENSE](LICENSE)。
+本仓库使用 [MIT License](LICENSE)。该协议不适用于 Aseprite 本身，请遵循官方 [Aseprite EULA](https://github.com/aseprite/aseprite/blob/main/EULA.txt)。
 
-该协议不适用于 Aseprite 本身。请查看官方 [Aseprite EULA](https://github.com/aseprite/aseprite/blob/main/EULA.txt)。
+---
+
+<div align="center">
+  <sub>Crafted with ❤️ by <a href="https://chius.cc">Chius</a> · Powered by GitHub Actions</sub>
+</div>
