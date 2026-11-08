@@ -6,6 +6,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build:
     name: Windows x64
@@ -14,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout Aseprite
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: aseprite/aseprite
           ref: main
@@ -88,7 +92,7 @@ jobs:
           }
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Aseprite-Windows-x64
           path: aseprite/build/bin
